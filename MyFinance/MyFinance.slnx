@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MyFinance.Api/MyFinance.Api.csproj" />
+    <Project Path="src/MyFinance.Domain/MyFinance.Domain.csproj" Id="b3af6040-1046-46e7-870d-6adbbcf4eb41" />
+    <Project Path="src/MyFinance.Infrastructure/MyFinance.Infrastructure.csproj" Id="496053f4-c01c-4e87-8ed3-01540db7a825" />
+  </Folder>
+</Solution>
