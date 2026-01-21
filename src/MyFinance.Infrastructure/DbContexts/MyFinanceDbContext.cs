@@ -27,6 +27,7 @@ public class MyFinanceDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+
         });
     }
 }

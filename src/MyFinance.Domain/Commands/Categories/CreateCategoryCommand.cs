@@ -16,12 +16,6 @@ public class CreateCategoryCommandHandler(ICategoryService categoryService) : IR
 {
     public async Task<Result<Category>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = new Category
-        {
-            Name = request.Name,
-            Type = request.Type
-        };
-        var result = await categoryService.CreateCategoryAsync(category);
-        return result;
+        return await categoryService.CreateCategoryAsync(request);
     }
 }

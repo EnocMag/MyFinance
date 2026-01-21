@@ -5,13 +5,13 @@ using MyFinance.Domain.Repositories;
 
 namespace MyFinance.Domain.Commands.Categories;
 
-public class GetCategoriesQuery : IRequest<Result<IEnumerable<Category>>>
+public class GetAllCategoriesQuery : IRequest<Result<IEnumerable<Category>>>
 {
 }
 
-public class GetCategoriesQueryHandler(ICategoryRepository categoryRepository) : IRequestHandler<GetCategoriesQuery, Result<IEnumerable<Category>>>
+public class GetAllCategoriesQueryHandler(ICategoryRepository categoryRepository) : IRequestHandler<GetAllCategoriesQuery, Result<IEnumerable<Category>>>
 {
-    public async Task<Result<IEnumerable<Category>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
+    public async Task<Result<IEnumerable<Category>>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
         var categories = await categoryRepository.GetAllAsync();
         return Result<IEnumerable<Category>>.Ok("Categories retrieved successfully", categories);

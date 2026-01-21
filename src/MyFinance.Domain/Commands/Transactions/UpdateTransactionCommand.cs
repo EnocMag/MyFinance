@@ -21,6 +21,6 @@ public class UpdateTransactionCommandHandler(ITransactionService transactionServ
 {
     public async Task<Result<Transaction>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
     {
-        return await transactionService.UpdateTransaction(request);
+        return await transactionService.UpdateTransactionAsync(request);
     }
 }

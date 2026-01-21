@@ -6,7 +6,7 @@ namespace MyFinance.Domain.Services.Interfaces;
 
 public interface ITransactionService
 {
-    Task<Result<Transaction>> CreateTransaction(CreateTransactionCommand input);
-    Task<Result<Transaction>> UpdateTransaction(UpdateTransactionCommand input);
-    Task<Result<Transaction>> DeleteTransaction(int id);
+    Task<Result<Transaction>> CreateTransactionAsync(CreateTransactionCommand input);
+    Task<Result<Transaction>> UpdateTransactionAsync(UpdateTransactionCommand input);
+    Task<Result<Transaction>> DeleteTransactionAsync(int id);
 }

@@ -19,6 +19,6 @@ public class CreateTransactionCommandHandler(ITransactionService transactionServ
 {
     public async Task<Result<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
-        return await transactionService.CreateTransaction(request);
+        return await transactionService.CreateTransactionAsync(request);
     }
 }

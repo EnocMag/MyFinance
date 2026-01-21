@@ -14,6 +14,6 @@ public class DeleteTransactionCommandHandler(ITransactionService transactionServ
 {
     public async Task<Result<Transaction>> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
     {
-        return await transactionService.DeleteTransaction(request.Id);
+        return await transactionService.DeleteTransactionAsync(request.Id);
     }
 }

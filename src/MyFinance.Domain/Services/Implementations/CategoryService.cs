@@ -1,17 +1,48 @@
-﻿using MyFinance.Domain.DTOs.Responses;
+﻿using MyFinance.Domain.Commands.Categories;
+using MyFinance.Domain.DTOs.Responses;
 using MyFinance.Domain.Entities;
 using MyFinance.Domain.Repositories;
 using MyFinance.Domain.Services.Interfaces;
+using System.Net;
 
 namespace MyFinance.Domain.Services.Implementations;
 
 public class CategoryService(ICategoryRepository categoryRepository) : ICategoryService
 {
-    public async Task<Result<Category>> CreateCategoryAsync(Category category)
+    public async Task<Result<Category>> CreateCategoryAsync(CreateCategoryCommand input)
     {
-        // Check if category with the same name already exists
-        //var existingCategory = await categoryRepository.GetByNameAsync(category.Name);
+        if (await categoryRepository.NameExistsAsync(input.Name))
+            return Result<Category>.Fail($"The category with the name '{input.Name}' already exists.");
+
+        var category = new Category
+        {
+            Name = input.Name,
+            Type = input.Type
+        };
+
         await categoryRepository.AddAsync(category);
         return Result<Category>.Ok("Category created successfully", category);
+    }
+
+    public async Task<Result<Category>> UpdateCategoryAsync(UpdateCategoryCommand input)
+    {
+        var category = await categoryRepository.GetByIdAsync(input.Id);
+        if (category == null)
+            return Result<Category>.Fail("The category with the provided Id was not found.", HttpStatusCode.NotFound);
+
+        if (input.Name != null) category.Name = input.Name;
+        if (input.Type != category.Type) category.Type = category.Type;
+
+        await categoryRepository.Update(category);
+        return Result<Category>.Ok("Category updated successfuly.", category);
+    }
+
+    public async Task<Result<Category>> DeleteCategoryAsync(int id)
+    {
+        var category = await categoryRepository.GetByIdAsync(id);
+        if (category == null)
+            return Result<Category>.Fail("Category not found", HttpStatusCode.NotFound);
+        await categoryRepository.Delete(category);
+        return Result<Category>.Ok("Category deleted successfuly.");
     }
 }
