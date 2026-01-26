@@ -8,7 +8,8 @@ public class Transaction : BaseEntity
     public decimal Amount { get; set; }
     public TransactionType Type { get; set; }
     public string? Description { get; set; }
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
+    public string? CategoryNameSnapshot { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 }

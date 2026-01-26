@@ -6,6 +6,7 @@ using MyFinance.Domain.Services.Implementations;
 using MyFinance.Domain.Services.Interfaces;
 using MyFinance.Infrastructure.DbContexts;
 using MyFinance.Infrastructure.Repositories;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,14 @@ builder.Services.AddCors(options =>
                                 .AllowCredentials();
                       });
 });
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 builder.Services.AddControllers()
     .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Program>());

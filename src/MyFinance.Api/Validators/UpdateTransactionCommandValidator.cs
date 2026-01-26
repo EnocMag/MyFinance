@@ -7,8 +7,6 @@ public class UpdateTransactionCommandValidator : AbstractValidator<UpdateTransac
 {
     public UpdateTransactionCommandValidator()
     {
-        RuleFor(x => x.Id)
-            .GreaterThan(0).WithMessage("Transaction Id must be greater than zero.");
         RuleFor(x => x.Amount)
             .GreaterThan(0).When(x => x.Amount.HasValue).WithMessage("Amount must be greater than zero.");
         RuleFor(x => x.Description)

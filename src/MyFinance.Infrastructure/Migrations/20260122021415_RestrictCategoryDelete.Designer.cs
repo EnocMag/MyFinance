@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyFinance.Infrastructure.DbContexts;
 
@@ -10,9 +11,11 @@ using MyFinance.Infrastructure.DbContexts;
 namespace MyFinance.Infrastructure.Migrations
 {
     [DbContext(typeof(MyFinanceDbContext))]
-    partial class MyFinanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260122021415_RestrictCategoryDelete")]
+    partial class RestrictCategoryDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,11 +50,8 @@ namespace MyFinance.Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CategoryNameSnapshot")
-                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -80,7 +80,8 @@ namespace MyFinance.Infrastructure.Migrations
                     b.HasOne("MyFinance.Domain.Entities.Category", "Category")
                         .WithMany("Transactions")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

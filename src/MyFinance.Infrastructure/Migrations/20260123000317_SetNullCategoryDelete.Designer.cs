@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyFinance.Infrastructure.DbContexts;
 
@@ -10,9 +11,11 @@ using MyFinance.Infrastructure.DbContexts;
 namespace MyFinance.Infrastructure.Migrations
 {
     [DbContext(typeof(MyFinanceDbContext))]
-    partial class MyFinanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260123000317_SetNullCategoryDelete")]
+    partial class SetNullCategoryDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +52,6 @@ namespace MyFinance.Infrastructure.Migrations
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CategoryNameSnapshot")
-                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");

@@ -31,8 +31,10 @@ public class TransactionService(ITransactionRepository transactionRepository, IC
             Type = input.Type,
             Description = input.Description,
             Category = category,
+            CategoryNameSnapshot = category.Name,
             CreatedAt = DateTime.UtcNow,
         };
+
         await transactionRepository.AddAsync(transaction);
         return Result<Transaction>.Ok("Transaction created successfully.", transaction);
     }
@@ -61,7 +63,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IC
         transaction.Amount      = imput.Amount      ?? transaction.Amount;
         transaction.Type        = imput.Type        ?? transaction.Type;
         transaction.Description = imput.Description ?? transaction.Description;
-        transaction.UpdatedAt   = imput.UpdatedAt;
+        transaction.UpdatedAt   = DateTime.UtcNow;
 
         await transactionRepository.Update(transaction);
         return Result<Transaction>.Ok("Transaction updated successfully.", transaction);

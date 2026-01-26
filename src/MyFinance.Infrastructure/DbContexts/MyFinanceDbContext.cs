@@ -21,7 +21,8 @@ public class MyFinanceDbContext : DbContext
             entity.Property(e => e.Date).IsRequired();
             entity.Property(e => e.Type).IsRequired();
             entity.HasOne(e => e.Category)
-                  .WithMany(c => c.Transactions);
+                  .WithMany(c => c.Transactions)
+                  .OnDelete(DeleteBehavior.SetNull);
         });
         modelBuilder.Entity<Category>(entity =>
         {

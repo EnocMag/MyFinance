@@ -10,21 +10,22 @@ public class TransactionController(IMediator mediator, ILogger<TransactionContro
     public async Task<IActionResult> CreateTransaction([FromBody] CreateTransactionCommand input) =>
         await processCommand(input);
 
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetTransactionById(int id) =>
         await processCommand(new GetTransactionQuery { Id = id });
+
     [HttpGet]
     public async Task<IActionResult> GetAllTransactions() =>
         await processCommand(new GetAllTransactionsQuery());
 
-    [HttpPatch("/{id}")]
+    [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateTransaction(int id, [FromBody] UpdateTransactionCommand input)
     {
         input.Id = id;
         return await processCommand(input);
     }
 
-    [HttpDelete("/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTransaction(int id) =>
         await processCommand(new DeleteTransactionCommand { Id = id });
 }

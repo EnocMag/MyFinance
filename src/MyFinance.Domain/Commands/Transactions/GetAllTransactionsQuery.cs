@@ -14,6 +14,8 @@ public class GetAllTransactionsQueryHandler(ITransactionRepository transactionSe
     public async Task<Result<IEnumerable<Transaction>>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
     {
         var transactions = await transactionService.GetAllAsync();
+        if (transactions.Count() == 0)
+            return Result<IEnumerable<Transaction>>.Fail("No transactions.", System.Net.HttpStatusCode.NotFound);
         return Result<IEnumerable<Transaction>>.Ok("Transactions retrieved successfully.", transactions);
     }
 }

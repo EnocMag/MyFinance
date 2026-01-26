@@ -30,8 +30,8 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         if (category == null)
             return Result<Category>.Fail("The category with the provided Id was not found.", HttpStatusCode.NotFound);
 
-        if (input.Name != null) category.Name = input.Name;
-        if (input.Type != category.Type) category.Type = category.Type;
+        if (!string.IsNullOrEmpty(input.Name) && input.Name != category.Name) category.Name = input.Name;
+        if (input.Type.HasValue && input.Type != category.Type) category.Type = input.Type.Value;
 
         await categoryRepository.Update(category);
         return Result<Category>.Ok("Category updated successfuly.", category);
