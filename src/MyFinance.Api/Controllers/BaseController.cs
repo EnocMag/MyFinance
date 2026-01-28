@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyFinance.Domain.DTOs.Responses;
 using System.Net;
@@ -7,7 +8,8 @@ namespace MyFinance.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BaseController(IMediator mediator, ILogger<BaseController> logger) : ControllerBase
+[Authorize]
+public abstract class BaseController(IMediator mediator, ILogger<BaseController> logger) : ControllerBase
 {
     protected async Task<IActionResult> processCommand<T>(IRequest<Result<T>> request) where T : class
     {
