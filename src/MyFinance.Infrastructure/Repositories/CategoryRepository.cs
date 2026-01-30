@@ -3,7 +3,6 @@ using MyFinance.Domain.Entities;
 using MyFinance.Domain.Enums;
 using MyFinance.Domain.Repositories;
 using MyFinance.Infrastructure.DbContexts;
-using MySqlX.XDevAPI.Common;
 
 namespace MyFinance.Infrastructure.Repositories;
 
