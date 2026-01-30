@@ -14,15 +14,11 @@ public class AuthenticationService : IAuthenticationService
         var key = Encoding.UTF8.GetBytes("clave-secreta-muy-larga-para-generar-el-token");
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("id", userId) }),
-            Expires = DateTime.UtcNow.AddMinutes(2),
+            Subject = new ClaimsIdentity(new[] { new Claim("sub", userId), new Claim("role","admin") }),
+            Expires = DateTime.UtcNow.AddMinutes(15),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
             Issuer = "MyFinanceAuthIssuer",
-            //Audience = "taxis.com",
-            //Claims = new Dictionary<string, object>
-            //{
-            //    { "roles", "Admin" }
-            //}
+            Audience = "taxis.com",
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
