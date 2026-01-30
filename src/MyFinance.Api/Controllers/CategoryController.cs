@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyFinance.Domain.Commands.Categories;
 
@@ -14,8 +15,12 @@ public class CategoryController(IMediator mediator, ILogger<CategoryController> 
     public async Task<IActionResult> GetCategoryById(int id) =>
         await processCommand(new GetCategoryQuery { Id = id });
     [HttpGet]
-    public async Task<IActionResult> GetAllCategorys() =>
+    //[Authorize(Roles = "admin")]
+    public async Task<IActionResult> GetAllCategories() =>
         await processCommand(new GetAllCategoriesQuery());
+    [HttpGet]
+    public async Task<IActionResult> GetExpenseCategories([FromBody] GetCategoriesByTypeQuery input) =>
+        await processCommand(input);
 
     [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryCommand input)

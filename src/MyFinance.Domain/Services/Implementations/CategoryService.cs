@@ -34,7 +34,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         if (input.Type.HasValue && input.Type != category.Type) category.Type = input.Type.Value;
 
         await categoryRepository.Update(category);
-        return Result<Category>.Ok("Category updated successfuly.", category);
+        return Result<Category>.Ok("Category updated successfully.", category);
     }
 
     public async Task<Result<Category>> DeleteCategoryAsync(int id)
@@ -43,6 +43,12 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         if (category == null)
             return Result<Category>.Fail("Category not found", HttpStatusCode.NotFound);
         await categoryRepository.Delete(category);
-        return Result<Category>.Ok("Category deleted successfuly.");
+        return Result<Category>.Ok("Category deleted successfully.");
+    }
+
+    public async Task<Result<IEnumerable<Category>>> GetCategoriesByType(GetCategoriesByTypeQuery input)
+    {
+        var categoriesByType = await categoryRepository.GetByTypeAsync(input.Type);
+        return Result<IEnumerable<Category>>.Ok("Categories retrieved successfully.", categoriesByType);
     }
 }
