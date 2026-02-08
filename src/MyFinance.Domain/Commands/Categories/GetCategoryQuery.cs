@@ -20,6 +20,6 @@ public class GetCategoryQueryHandler(ICategoryRepository categoryRepository) : I
         {
             return Result<Category>.Fail("The category with the provided Id was not found.", HttpStatusCode.NotFound);
         }
-        return Result<Category>.Ok("Category retrived successfuly.", category);
+        return Result<Category>.Ok("Category retrived successfully.", category);
     }
 }
