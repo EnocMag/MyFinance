@@ -45,10 +45,4 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         await categoryRepository.Delete(category);
         return Result<Category>.Ok("Category deleted successfully.");
     }
-
-    public async Task<Result<IEnumerable<Category>>> GetCategoriesByType(GetCategoriesByTypeQuery input)
-    {
-        var categoriesByType = await categoryRepository.GetByTypeAsync(input.Type);
-        return Result<IEnumerable<Category>>.Ok("Categories retrieved successfully.", categoriesByType);
-    }
 }

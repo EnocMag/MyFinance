@@ -9,5 +9,4 @@ public interface ICategoryService
     Task<Result<Category>> CreateCategoryAsync(CreateCategoryCommand input);
     Task<Result<Category>> UpdateCategoryAsync(UpdateCategoryCommand input);
     Task<Result<Category>> DeleteCategoryAsync(int id);
-    Task<Result<IEnumerable<Category>>> GetCategoriesByType(GetCategoriesByTypeQuery input);
 }
