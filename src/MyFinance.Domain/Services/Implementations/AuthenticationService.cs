@@ -15,7 +15,7 @@ public class AuthenticationService : IAuthenticationService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[] { new Claim("sub", userId), new Claim("role","admin") }),
-            Expires = DateTime.UtcNow.AddMinutes(15),
+            Expires = DateTime.UtcNow.AddMinutes(60),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256),
             Issuer = "MyFinanceAuthIssuer",
             Audience = "taxis.com",
