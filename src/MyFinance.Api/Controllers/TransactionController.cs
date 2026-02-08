@@ -18,6 +18,10 @@ public class TransactionController(IMediator mediator, ILogger<TransactionContro
     public async Task<IActionResult> GetAllTransactions() =>
         await processCommand(new GetAllTransactionsQuery());
 
+    [HttpGet("report/{type}/{year}")]
+    public async Task<IActionResult> GetTransactionsReport() =>
+        await processCommand(new GetTransactionsReportQuery());
+
     [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateTransaction(int id, [FromBody] UpdateTransactionCommand input)
     {
