@@ -19,14 +19,15 @@ public class TransactionRepository(MyFinanceDbContext context) : BaseRepository<
     public async Task<IEnumerable<MonthlyReportDto>> GetReportForMonth(TransactionType type, int year)
     {
         return await context.Transactions
-            .Where(x => x.Type == type && x.Date.Year == year)
-            .GroupBy(x => x.Date.Month)
-            .OrderBy(g => g.Key)
+            .Where(t => t.Type == type && t.Date.Year == year)
+            .GroupBy(t => new { t.Date.Year, t.Date.Month })
+            .OrderBy(g => new { g.Key.Year, g.Key.Month })
             .Select(g => new MonthlyReportDto
             {
-                Month = g.Key,
+                Year = g.Key.Year,
+                Month = g.Key.Month,
                 Total = g.Sum(x => x.Amount)
-            })
-            .ToListAsync();
+            }).ToListAsync();
+
     }
 }
