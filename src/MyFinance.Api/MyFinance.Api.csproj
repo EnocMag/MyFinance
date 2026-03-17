@@ -15,11 +15,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Web" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyFinance.Domain\MyFinance.Domain.csproj" />
     <ProjectReference Include="..\MyFinance.Infrastructure\MyFinance.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyFinance.ServiceDefaults\MyFinance.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
